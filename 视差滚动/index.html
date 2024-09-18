@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSAP 视差滚动示例</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: auto;
+            overflow-x: hidden; /* 实际上滚动的是body */
+        }
+        .parallax-container {
+            position: relative;
+            width: 100%;
+            height: auto;
+            overflow: hidden;
+        }
+        .parallax-layer {
+            width: 100%;
+            height: 100vh;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 170px;
+        }
+        .layer1 {
+            background-image: url('https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'); /* 替换为你的图片URL */
+        }
+        .layer2 {
+            background-image: url('https://fuss10.elemecdn.com/8/27/f01c15bb73e1ef3793e64e6b7bbccjpeg.jpeg'); /* 替换为你的图片URL */
+        }
+        .layer3 {
+            background-image: url('https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg'); /* 替换为你的图片URL */
+        }
+    </style>
+</head>
+<body>
+
+<div class="parallax-container">
+    <div class="parallax-layer layer1">layer1</div>
+    <div class="parallax-layer layer2">layer2</div>
+    <div class="parallax-layer layer3">layer3</div>
+</div>
+
+<!-- 引入GSAP和ScrollTrigger CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/ScrollTrigger.min.js"></script>
+
+<script>
+    gsap.registerPlugin(ScrollTrigger); // 注册ScrollTrigger插件
+    const layers = document.querySelectorAll('.parallax-layer');
+    layers.forEach(dom => {
+        gsap.fromTo(
+            dom,
+            {
+                backgroundPositionY: `-${window.innerHeight / 2}px`,
+            },
+            {
+                backgroundPositionY: `${window.innerHeight / 2}px`,
+                ease: 'none',
+                scrollTrigger:{
+                    trigger: dom,
+                    scrub: true,
+                }
+
+            },
+        )
+    })
+
+</script>
+
+</body>
+</html>
